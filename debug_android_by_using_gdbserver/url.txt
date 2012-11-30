@@ -1,0 +1,7 @@
+嵌入式linux调试：用gdbserver调试共享库
+http://blog.csdn.net/absurd/article/details/804810
+
+http://blog.csdn.net/long19851105/article/details/5910050
+
+http://redmine.replicant.us/projects/replicant/wiki/GDBDebugging
+
