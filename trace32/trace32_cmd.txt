@@ -1,0 +1,30 @@
+http://blog.csdn.net/long19851105/article/details/5974568
+cd kerneldir
+d.load.elf vmlinux /nocode
+symbol.sourcepath.setrecursedir kerneldir
+
+
+MMU.RESet
+MMU.Create 0x1000000--0x100ffff a:0x00000--0x0ffff
+MMU.Create 0x1010000--0x101ffff a:0x10000--0x1ffff
+MMU.TRANS 0x0--0x0ffff
+MMU.ON
+Data.LOAD.u example.dbg /NosYmbol
+sYmbol.RELOCate c:0x1000000
+
+
+MMU.RESet
+MMU.Create 0x40000000--0x4fffffff a:0xc0000000--0xcfffffff
+MMU.TRANS 0x0--0xfffffff
+MMU.ON
+
+MMU.RESet
+MMU.Create 0x40000000--0x4fffffff a:0x40000000--0x4fffffff
+MMU.TRANS 0x40000000--0x4fffffff
+
+MMU.Create 0x40000000--0x4fffffff a:0xc0000000--0xcfffffff
+MMU.TRANS 0x40000000--0x4fffffff
+MMU.ON
+
+# phys/virtual relocate
+sYmbol.RELOCate p:0x80000000
