@@ -2,7 +2,10 @@
 adb shell gdbserver :5000 --attach 1609
 where 1609 is the pid of system_server that to call the libbluedroid.so
 
-2.run client:
+2. use adb to do port forward
+    adb forward tcp:5000 tcp:5000
+
+3.run client:
 arm-linux-androideabi-gdb
 and then in gdb command line prompt:
 directory /home/karlzheng/dev/android-4.0.4_r1.1
@@ -22,7 +25,7 @@ add-symbol-file /home/karlzheng/dev/android-4.0.4_r1.1/out/target/product/smdk4x
 #409f1000-409f2000 rw-p 00002000 b3:02 517        /system/lib/libbluedroid.so
 #
 #karlzheng@latop-dell780:~/dev/android-4.0.4_r1.1/out/target/product/smdk4x12/symbols/system/lib$
-#arm-linux-androideabi-objdump -h libbluedroid.so |grep -i tex
+#arm-linux-androideabi-objdump -h libbluedroid.so |grep -i text
 #  6 .text         000005d8  00000854  00000854  00000854  2**2
 #
 
