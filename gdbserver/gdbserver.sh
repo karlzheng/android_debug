@@ -1,10 +1,10 @@
 #!/bin/bash
 
-function print_debug_so_mem_addr()
+function print_so_mem_addr()
 {
-    if [ -f debug_so.txt ];then
-	debug_so_file_name=$(sed -ne '1p' debug_so.txt |tr -d '\r' | tr -d '\n')
-	adb shell cat /proc/$pid/maps |grep $debug_so_file_name
+    if [ -f so.fn ];then
+	so_file_name=$(sed -ne '1p' so.fn |tr -d '\r' | tr -d '\n')
+	adb shell cat /proc/$pid/maps |grep $so_file_name
     fi
 }
 
@@ -21,7 +21,7 @@ if [ "x$pid" != "x" ];then
     
     adb forward tcp:5000 tcp:5000
 
-    #print_debug_so_mem_addr
+    print_so_mem_addr
     
     echo "adb shell gdbserver :5000 --attach $pid"
     adb shell gdbserver :5000 --attach $pid

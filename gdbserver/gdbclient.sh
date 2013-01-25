@@ -12,7 +12,7 @@ function product_dir()
     fi
 }
 
-function cal_debug_so_mem_addr()
+function cal_so_mem_addr()
 {
 #add-symbol-file /home/karlzheng/dev/android-4.0.4_r1.1/out/target/product/smdk4x12/symbols/system/lib/libbluedroid.so 0x409ef854
 
@@ -27,8 +27,8 @@ function cal_debug_so_mem_addr()
 
 # 409ef000 + offset 00000854
 
-    if [ -f debug_so.txt ];then
-	local fn=$(sed -ne '1p' debug_so.txt |tr -d '\r' | tr -d '\n')
+    if [ -f so.fn ];then
+	local fn=$(sed -ne '1p' so.fn |tr -d '\r' | tr -d '\n')
 	echo "adb shell cat /proc/$pid/maps | grep $fn"
 	local base="0x"$(adb shell cat /proc/$pid/maps | grep $fn \
 	    | head -n 1 | awk -F'-' '{print $1}')
@@ -75,7 +75,7 @@ function gen_gdb_init_file()
     echo "show solib-absolute-prefix" >> $GDB_INIT_FILE
     echo "show solib-search-path" >> $GDB_INIT_FILE
     
-    cal_debug_so_mem_addr
+    cal_so_mem_addr
 
     echo "target remote :5000" >> $GDB_INIT_FILE
     cat $GDB_INIT_FILE
